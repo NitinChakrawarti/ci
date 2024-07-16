@@ -35,11 +35,12 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     steps:
-      - name: Deploy with gh-pages
-      
-        run: |
-          git remote set-url origin https://NitinChakrawarti:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-          npm run deploy -- -u "github-actions-bot <support+actions@github.com>"
-        env:
-         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'nodejs-docs-hello-world'
+          slot-name: 'production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4 }}
+          package: .
+
     
